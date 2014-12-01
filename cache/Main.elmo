@@ -1,0 +1,467 @@
+Elm.Main = Elm.Main || {};
+Elm.Main.make = function (_elm) {
+   "use strict";
+   _elm.Main = _elm.Main || {};
+   if (_elm.Main.values)
+   return _elm.Main.values;
+   var _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _A = _N.Array.make(_elm),
+   _E = _N.Error.make(_elm),
+   $moduleName = "Main";
+   var Array = Elm.Array.make(_elm);
+   var Basics = Elm.Basics.make(_elm);
+   var Color = Elm.Color.make(_elm);
+   var Debug = Elm.Debug.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Collage = Elm.Graphics.Collage.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Element = Elm.Graphics.Element.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Input = Elm.Graphics.Input.make(_elm);
+   var Html = Elm.Html.make(_elm);
+   var Html = Html || {};
+   Html.Events = Elm.Html.Events.make(_elm);
+   var List = Elm.List.make(_elm);
+   var Maybe = Elm.Maybe.make(_elm);
+   var Native = Native || {};
+   Native.Json = Elm.Native.Json.make(_elm);
+   var Native = Native || {};
+   Native.Ports = Elm.Native.Ports.make(_elm);
+   var Signal = Elm.Signal.make(_elm);
+   var String = Elm.String.make(_elm);
+   var Text = Elm.Text.make(_elm);
+   var Time = Elm.Time.make(_elm);
+   var Window = Elm.Window.make(_elm);
+   var _op = {};
+   var findNote = F2(function (note,
+   listOfNotes) {
+      return function () {
+         switch (listOfNotes.ctor)
+         {case "::": return _U.eq(note,
+              listOfNotes._0) ? listOfNotes._1 : A2(findNote,
+              note,
+              listOfNotes._1);
+            case "[]":
+            return _L.fromArray([""]);}
+         _E.Case($moduleName,
+         "between lines 72 and 76");
+      }();
+   });
+   var minor = {_: {}
+               ,first: 0
+               ,fourth: Maybe.Nothing
+               ,name: "minor"
+               ,second: 3
+               ,third: 7};
+   var major = {_: {}
+               ,first: 0
+               ,fourth: Maybe.Nothing
+               ,name: "major"
+               ,second: 4
+               ,third: 7};
+   var chords = _L.fromArray([major
+                             ,minor]);
+   var baseNotes = _L.fromArray(["C"
+                                ,"C#"
+                                ,"D"
+                                ,"D#"
+                                ,"E"
+                                ,"F"
+                                ,"F#"
+                                ,"G"
+                                ,"G#"
+                                ,"A"
+                                ,"A#"
+                                ,"B"
+                                ,"C"
+                                ,"C#"
+                                ,"D"
+                                ,"D#"
+                                ,"E"
+                                ,"F"
+                                ,"F#"
+                                ,"G"
+                                ,"G#"
+                                ,"A"
+                                ,"A#"
+                                ,"B"
+                                ,"C"
+                                ,"C#"
+                                ,"D"
+                                ,"D#"
+                                ,"E"
+                                ,"F"
+                                ,"F#"
+                                ,"G"
+                                ,"G#"
+                                ,"A"
+                                ,"A#"
+                                ,"B"]);
+   var findNoteIndex = function (note) {
+      return function () {
+         var indexedNotes = Array.toIndexedList(Array.fromList(baseNotes));
+         var filteredNotes = A2(List.filter,
+         function (x) {
+            return _U.eq(Basics.snd(x),
+            note);
+         },
+         indexedNotes);
+         return Basics.fst(List.head(filteredNotes));
+      }();
+   };
+   var newNote = function (value) {
+      return {_: {}
+             ,num: findNoteIndex(value)
+             ,selected: false
+             ,val: value};
+   };
+   var scale = A2(List.map,
+   function (n) {
+      return newNote(n);
+   },
+   baseNotes);
+   var newStrang = function (leadNoteIndex) {
+      return function () {
+         var notes = A2(List.take,
+         12,
+         A2(List.drop,
+         leadNoteIndex,
+         scale));
+         return {_: {}
+                ,leadNote: List.head(notes)
+                ,notes: notes};
+      }();
+   };
+   var strangs = _L.fromArray([newStrang(2)
+                              ,newStrang(7)
+                              ,newStrang(11)
+                              ,newStrang(2)]);
+   var getNoteClass = F2(function (state,
+   note) {
+      return function () {
+         var chord = state.chord;
+         var noteVal = note.num;
+         var selectedNote = state.selectedNote.num;
+         var first = List.head(A2(List.drop,
+         selectedNote + chord.first,
+         scale));
+         var second = List.head(A2(List.drop,
+         selectedNote + chord.second,
+         scale));
+         var third = List.head(A2(List.drop,
+         selectedNote + chord.third,
+         scale));
+         return _U.eq(noteVal,
+         first.num) ? " firstNote" : _U.eq(noteVal,
+         second.num) ? " secondNote" : _U.eq(noteVal,
+         third.num) ? " thirdNote" : "";
+      }();
+   });
+   var fretNoteView = F2(function (state,
+   note) {
+      return function () {
+         var selected = A2(getNoteClass,
+         state,
+         note);
+         var className = "fretNote";
+         return A4(Html.node,
+         "li",
+         _L.fromArray([A2(Html._op[":="],
+         "className",
+         _L.append(className,
+         selected))]),
+         _L.fromArray([]),
+         _L.fromArray([A4(Html.node,
+         "span",
+         _L.fromArray([]),
+         _L.fromArray([]),
+         _L.fromArray([Html.text(note.val)]))]));
+      }();
+   });
+   var firstFretNoteView = F2(function (state,
+   note) {
+      return function () {
+         var selected = A2(getNoteClass,
+         state,
+         note);
+         var className = "fretNote first";
+         return A4(Html.node,
+         "li",
+         _L.fromArray([A2(Html._op[":="],
+         "className",
+         _L.append(className,
+         selected))]),
+         _L.fromArray([]),
+         _L.fromArray([A4(Html.node,
+         "span",
+         _L.fromArray([]),
+         _L.fromArray([]),
+         _L.fromArray([Html.text(note.val)]))]));
+      }();
+   });
+   var strangView = F2(function (state,
+   strang) {
+      return function () {
+         var firstNote = A2(firstFretNoteView,
+         state,
+         strang.leadNote);
+         var notes = {ctor: "::"
+                     ,_0: firstNote
+                     ,_1: A2(List.map,
+                     function (n) {
+                        return A2(fretNoteView,
+                        state,
+                        n);
+                     },
+                     A2(List.drop,1,strang.notes))};
+         return A4(Html.node,
+         "li",
+         _L.fromArray([A2(Html._op[":="],
+         "className",
+         "string")]),
+         _L.fromArray([]),
+         _L.fromArray([A4(Html.node,
+         "ul",
+         _L.fromArray([]),
+         _L.fromArray([]),
+         notes)]));
+      }();
+   });
+   var fretView = function (state) {
+      return A4(Html.node,
+      "div",
+      _L.fromArray([A2(Html._op[":="],
+      "className",
+      "fretView")]),
+      _L.fromArray([]),
+      _L.fromArray([A4(Html.node,
+      "ul",
+      _L.fromArray([]),
+      _L.fromArray([]),
+      A2(List.map,
+      function (n) {
+         return A2(strangView,
+         state,
+         n);
+      },
+      strangs))]));
+   };
+   var startingState = {_: {}
+                       ,chord: major
+                       ,chordSelectNotes: newStrang(0).notes
+                       ,selectedNote: newNote("C")};
+   var State = F3(function (a,
+   b,
+   c) {
+      return {_: {}
+             ,chord: c
+             ,chordSelectNotes: b
+             ,selectedNote: a};
+   });
+   var Strang = F2(function (a,b) {
+      return {_: {}
+             ,leadNote: b
+             ,notes: a};
+   });
+   var Note = F3(function (a,b,c) {
+      return {_: {}
+             ,num: b
+             ,selected: c
+             ,val: a};
+   });
+   var Chord = F5(function (a,
+   b,
+   c,
+   d,
+   e) {
+      return {_: {}
+             ,first: a
+             ,fourth: d
+             ,name: e
+             ,second: b
+             ,third: c};
+   });
+   var ChordSelected = function (a) {
+      return {ctor: "ChordSelected"
+             ,_0: a};
+   };
+   var NoteSelected = function (a) {
+      return {ctor: "NoteSelected"
+             ,_0: a};
+   };
+   var NoOp = {ctor: "NoOp"};
+   var actions = Graphics.Input.input(NoOp);
+   var chordNoteView = F2(function (state,
+   note) {
+      return function () {
+         var selected = _U.eq(note.val,
+         state.selectedNote.val) ? " selected" : "";
+         var baseClass = "chordSelectNote";
+         return A5(Html.eventNode,
+         "div",
+         _L.fromArray([A2(Html._op[":="],
+         "className",
+         _L.append(baseClass,
+         selected))]),
+         _L.fromArray([]),
+         _L.fromArray([A2(Html.Events.onclick,
+         actions.handle,
+         function (_v3) {
+            return function () {
+               return NoteSelected(note);
+            }();
+         })]),
+         _L.fromArray([A4(Html.node,
+         "span",
+         _L.fromArray([A2(Html._op[":="],
+         "className",
+         selected)]),
+         _L.fromArray([]),
+         _L.fromArray([Html.text(note.val)]))]));
+      }();
+   });
+   var chordTypeView = F2(function (state,
+   chord) {
+      return function () {
+         var className = _U.eq(state.chord.name,
+         chord.name) ? " selected" : "";
+         return A5(Html.eventNode,
+         "div",
+         _L.fromArray([A2(Html._op[":="],
+         "className",
+         _L.append("chordTypeSelector",
+         className))]),
+         _L.fromArray([]),
+         _L.fromArray([A2(Html.Events.onclick,
+         actions.handle,
+         function (_v5) {
+            return function () {
+               return ChordSelected(chord);
+            }();
+         })]),
+         _L.fromArray([A4(Html.node,
+         "span",
+         _L.fromArray([A2(Html._op[":="],
+         "className",
+         className)]),
+         _L.fromArray([]),
+         _L.fromArray([Html.text(chord.name)]))]));
+      }();
+   });
+   var chordSelectView = function (state) {
+      return A4(Html.node,
+      "div",
+      _L.fromArray([A2(Html._op[":="],
+      "className",
+      "chordSelectNotes")]),
+      _L.fromArray([]),
+      _L.fromArray([A4(Html.node,
+                   "div",
+                   _L.fromArray([]),
+                   _L.fromArray([]),
+                   A2(List.map,
+                   function (n) {
+                      return A2(chordNoteView,
+                      state,
+                      n);
+                   },
+                   state.chordSelectNotes))
+                   ,A4(Html.node,
+                   "div",
+                   _L.fromArray([A2(Html._op[":="],
+                   "className",
+                   "chordTypeSelectors")]),
+                   _L.fromArray([]),
+                   A2(List.map,
+                   chordTypeView(state),
+                   chords))]));
+   };
+   var view = function (state) {
+      return A4(Html.node,
+      "div",
+      _L.fromArray([A2(Html._op[":="],
+      "className",
+      "main")]),
+      _L.fromArray([]),
+      _L.fromArray([chordSelectView(state)
+                   ,fretView(state)]));
+   };
+   var scene = F2(function (state,
+   _v7) {
+      return function () {
+         switch (_v7.ctor)
+         {case "_Tuple2":
+            return A4(Graphics.Element.container,
+              _v7._0,
+              _v7._1,
+              Graphics.Element.bottomRight,
+              A3(Html.toElement,
+              _v7._0,
+              _v7._1,
+              view(state)));}
+         _E.Case($moduleName,
+         "on line 213, column 5 to 62");
+      }();
+   });
+   var step = F2(function (action,
+   state) {
+      return function () {
+         switch (action.ctor)
+         {case "ChordSelected":
+            return _U.replace([["chord"
+                               ,action._0]],
+              state);
+            case "NoOp": return state;
+            case "NoteSelected":
+            return _U.replace([["selectedNote"
+                               ,action._0]],
+              state);}
+         _E.Case($moduleName,
+         "between lines 198 and 201");
+      }();
+   });
+   var state = A3(Signal.foldp,
+   step,
+   startingState,
+   actions.signal);
+   var main = A3(Signal.lift2,
+   scene,
+   state,
+   Window.dimensions);
+   _elm.Main.values = {_op: _op
+                      ,baseNotes: baseNotes
+                      ,scale: scale
+                      ,major: major
+                      ,minor: minor
+                      ,chords: chords
+                      ,strangs: strangs
+                      ,newNote: newNote
+                      ,newStrang: newStrang
+                      ,findNoteIndex: findNoteIndex
+                      ,findNote: findNote
+                      ,getNoteClass: getNoteClass
+                      ,fretNoteView: fretNoteView
+                      ,firstFretNoteView: firstFretNoteView
+                      ,strangView: strangView
+                      ,fretView: fretView
+                      ,chordNoteView: chordNoteView
+                      ,chordTypeView: chordTypeView
+                      ,chordSelectView: chordSelectView
+                      ,view: view
+                      ,actions: actions
+                      ,step: step
+                      ,state: state
+                      ,startingState: startingState
+                      ,scene: scene
+                      ,main: main
+                      ,NoOp: NoOp
+                      ,NoteSelected: NoteSelected
+                      ,ChordSelected: ChordSelected
+                      ,Chord: Chord
+                      ,Note: Note
+                      ,Strang: Strang
+                      ,State: State};
+   return _elm.Main.values;
+};

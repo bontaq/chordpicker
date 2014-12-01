@@ -1,0 +1,170 @@
+Elm.Html = Elm.Html || {};
+Elm.Html.Events = Elm.Html.Events || {};
+Elm.Html.Events.make = function (_elm) {
+   "use strict";
+   _elm.Html = _elm.Html || {};
+   _elm.Html.Events = _elm.Html.Events || {};
+   if (_elm.Html.Events.values)
+   return _elm.Html.Events.values;
+   var _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _A = _N.Array.make(_elm),
+   _E = _N.Error.make(_elm),
+   $moduleName = "Html.Events";
+   var Basics = Elm.Basics.make(_elm);
+   var Color = Elm.Color.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Collage = Elm.Graphics.Collage.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Element = Elm.Graphics.Element.make(_elm);
+   var Graphics = Graphics || {};
+   Graphics.Input = Elm.Graphics.Input.make(_elm);
+   var Json = Elm.Json.make(_elm);
+   var List = Elm.List.make(_elm);
+   var Maybe = Elm.Maybe.make(_elm);
+   var Native = Native || {};
+   Native.Html = Elm.Native.Html.make(_elm);
+   var Native = Native || {};
+   Native.Json = Elm.Native.Json.make(_elm);
+   var Native = Native || {};
+   Native.Ports = Elm.Native.Ports.make(_elm);
+   var Signal = Elm.Signal.make(_elm);
+   var String = Elm.String.make(_elm);
+   var Text = Elm.Text.make(_elm);
+   var Time = Elm.Time.make(_elm);
+   var _op = {};
+   var getAnything = Native.Html.getAnything;
+   var getKeyboardEvent = Native.Html.getKeyboardEvent;
+   var getMouseEvent = Native.Html.getMouseEvent;
+   var getValueAndSelection = Native.Html.getValueAndSelection;
+   var Backward = {ctor: "Backward"};
+   var Forward = {ctor: "Forward"};
+   var getValue = Native.Html.getValue;
+   var getChecked = Native.Html.getChecked;
+   var filterMap = Native.Html.filterMap;
+   var when = F2(function (pred,
+   getter) {
+      return A2(Native.Html.filterMap,
+      function (v) {
+         return pred(v) ? Maybe.Just(v) : Maybe.Nothing;
+      },
+      getter);
+   });
+   var on = F4(function (name,
+   coerce,
+   handle,
+   convert) {
+      return A4(Native.Html.on,
+      name,
+      coerce,
+      handle,
+      convert);
+   });
+   var Get = {ctor: "Get"};
+   var onsubmit = F2(function (handle,
+   value) {
+      return A4(Native.Html.on,
+      "submit",
+      Native.Html.getAnything,
+      handle,
+      Basics.always(value));
+   });
+   var onfocus = F2(function (handle,
+   value) {
+      return A4(Native.Html.on,
+      "focus",
+      Native.Html.getAnything,
+      handle,
+      Basics.always(value));
+   });
+   var onblur = F2(function (handle,
+   value) {
+      return A4(Native.Html.on,
+      "blur",
+      Native.Html.getAnything,
+      handle,
+      Basics.always(value));
+   });
+   var onKey = function (name) {
+      return A2(Native.Html.on,
+      name,
+      Native.Html.getKeyboardEvent);
+   };
+   var onkeyup = onKey("keyup");
+   var onkeydown = onKey("keydown");
+   var onkeypress = onKey("keypress");
+   var KeyboardEvent = F5(function (a,
+   b,
+   c,
+   d,
+   e) {
+      return {_: {}
+             ,altKey: b
+             ,ctrlKey: c
+             ,keyCode: a
+             ,metaKey: d
+             ,shiftKey: e};
+   });
+   var onMouse = function (name) {
+      return A2(Native.Html.on,
+      name,
+      Native.Html.getMouseEvent);
+   };
+   var onclick = onMouse("click");
+   var ondblclick = onMouse("dblclick");
+   var onmousemove = onMouse("mousemove");
+   var onmousedown = onMouse("mousedown");
+   var onmouseup = onMouse("mouseup");
+   var onmouseenter = onMouse("mouseenter");
+   var onmouseleave = onMouse("mouseleave");
+   var onmouseover = onMouse("mouseover");
+   var onmouseout = onMouse("mouseout");
+   var MouseEvent = F5(function (a,
+   b,
+   c,
+   d,
+   e) {
+      return {_: {}
+             ,altKey: b
+             ,button: a
+             ,ctrlKey: c
+             ,metaKey: d
+             ,shiftKey: e};
+   });
+   var EventListener = {ctor: "EventListener"};
+   _elm.Html.Events.values = {_op: _op
+                             ,onMouse: onMouse
+                             ,onclick: onclick
+                             ,ondblclick: ondblclick
+                             ,onmousemove: onmousemove
+                             ,onmousedown: onmousedown
+                             ,onmouseup: onmouseup
+                             ,onmouseenter: onmouseenter
+                             ,onmouseleave: onmouseleave
+                             ,onmouseover: onmouseover
+                             ,onmouseout: onmouseout
+                             ,onKey: onKey
+                             ,onkeyup: onkeyup
+                             ,onkeydown: onkeydown
+                             ,onkeypress: onkeypress
+                             ,onblur: onblur
+                             ,onfocus: onfocus
+                             ,onsubmit: onsubmit
+                             ,on: on
+                             ,when: when
+                             ,filterMap: filterMap
+                             ,getChecked: getChecked
+                             ,getValue: getValue
+                             ,getValueAndSelection: getValueAndSelection
+                             ,getMouseEvent: getMouseEvent
+                             ,getKeyboardEvent: getKeyboardEvent
+                             ,getAnything: getAnything
+                             ,EventListener: EventListener
+                             ,Get: Get
+                             ,Forward: Forward
+                             ,Backward: Backward
+                             ,MouseEvent: MouseEvent
+                             ,KeyboardEvent: KeyboardEvent};
+   return _elm.Html.Events.values;
+};

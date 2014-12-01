@@ -1,0 +1,70 @@
+#+STARTUP: indent
+
+Strang needs a lead note -- that can be updated & is an event node, instead of
+just a node
+
+All fretboard notes could be added to the state so we could just iterate over
+them too add / remove class?
+
+Add ability to change string lead note
+
+* TODO Add first string!  Fuck you!
+** Actually pretty simple -- just drop the first notes
+
+* Ideas
+** Circular selection for major / minor?
+** Circular selection for note changes?
+
+* DONE Display chord selection
+CLOSED: [2014-09-11 Thu 13:40]
+- State "DONE"       from "TODO"       [2014-09-11 Thu 13:40]
+** DONE Notes
+CLOSED: [2014-09-05 Fri 15:42]
+- State "DONE"       from "NEXT"       [2014-09-05 Fri 15:42]
+** DONE Get value of note
+CLOSED: [2014-09-06 Sat 15:29]
+- State "DONE"       from "TODO"       [2014-09-06 Sat 15:29]
+** DONE Maintain clicked status
+CLOSED: [2014-09-06 Sat 15:29]
+- State "DONE"       from "TODO"       [2014-09-06 Sat 15:29]
+** DONE Highlight clicked note on strings
+CLOSED: [2014-09-06 Sat 15:29]
+- State "DONE"       from "TODO"       [2014-09-06 Sat 15:29]
+** DONE Major
+CLOSED: [2014-09-11 Thu 13:40]
+- State "DONE"       from "TODO"       [2014-09-11 Thu 13:40]
+** DONE Minor
+CLOSED: [2014-09-11 Thu 13:40]
+- State "DONE"       from "TODO"       [2014-09-11 Thu 13:40]
+
+* DONE Show 1st 3rd 5th on strings?
+CLOSED: [2014-09-11 Thu 13:40]
+- State "DONE"       from "TODO"       [2014-09-11 Thu 13:40]
+* TODO Add frets
+** TODO Basic frets
+** TODO Fancy frets
+* TODO Add high string
+* TODO Clean up stylesheets
+* TODO Fix sharp
+* TODO More focus on selected notes
+* TODO Mobile formatting
+* TODO Chord types:
+** TODO Minor
+*** TODO 7
+*** TODO 6
+*** TODO 7M
+*** TODO 9
+*** TODO 6/9
+*** TODO 7B5
+*** TODO 7#5
+** TODO Major
+*** TODO m7
+*** TODO m6
+*** TODO m7b5
+*** TODO m6/9
+*** TODO m9
+** TODO Other
+*** TODO dim7
+*** TODO aug
+*** TODO sus2
+*** TODO sus4
